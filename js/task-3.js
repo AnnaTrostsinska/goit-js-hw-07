@@ -1,15 +1,12 @@
-const inputName = document.getElementById(`name-input`);
-const outputName = document.getElementById(`name-output`);
+const nameInput = document.getElementById('name-input');
+const nameOutput = document.getElementById('name-output');
 
-inputName.addEventListener(`input`, uppName);
+nameInput.addEventListener('input', function() {
+    const trimmedValue = this.value.trim();
 
-function uppName() {
-    const value = inputName.value.trim();
-
-    if (value === ``) {
-        outputName.textContent = `Anonymous`;
+    if (trimmedValue === '') {
+        nameOutput.textContent = 'Anonymous';
     } else {
-        outputName.textContent = value;
+        nameOutput.textContent = trimmedValue;
     }
-
-}
+});

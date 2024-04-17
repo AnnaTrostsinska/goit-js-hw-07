@@ -1,44 +1,45 @@
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215)
     .toString(16)
-    .padStart(6, 0)}`;
+    .padStart(6, '0')}`;
 }
 
-const userInput = document.querySelector('input');
-const createButton = document.querySelector('[data-create]');
-const destroyButton = document.querySelector('[data-destroy]');
-const boxContainer = document.querySelector('#boxes');
+const input = document.querySelector('input[type="number"]');
+const createBtn = document.querySelector('[data-create]');
+const destroyBtn = document.querySelector('[data-destroy]');
+const boxesContainer = document.querySelector('#boxes');
 
-function createButtonHandler(event) {
-   
-  for (let i = 0; i < event; i++) {
-    const box = document.createElement('div');
-    box.style.width = 30 + 10 * i + 'px';
-    box.style.height = 30 + 10 * i + 'px';
-    box.style.backgroundColor = getRandomHexColor();
-    boxContainer.append(box);
+createBtn.addEventListener('click', function() {
+  const amount = parseInt(input.value, 10);
+  createBoxes(amount);
+});
+
+destroyBtn.addEventListener('click', destroyBoxes);
+
+function createBoxes(amount) {
+  if (amount < 1 || amount > 100) {
+    return;
   }
-  
- 
-}
-function button(event) {
-  event.preventDefault();
-  const content = userInput.value;
-  const userContent = parseInt(content, 10);
-  if (userContent >= 1 && userContent <= 100) {
-    createButtonHandler(userContent);
+
+  clearBoxes();
+
+  let size = 30;
+  for (let i = 0; i < amount; i++) {
+    const div = document.createElement('div');
+    div.style.width = `${size}px`;
+    div.style.height = `${size}px`;
+    div.style.backgroundColor = getRandomHexColor();
+    boxesContainer.appendChild(div);
+    size += 10;
   }
-  else{
-    alert('Please enter a number between 1 and 100.');
-  }
-  userInput.value = '';
+
+  input.value = '';
 }
 
-function destroyBoxes(event) {
-  event.preventDefault();
-  boxContainer.innerHTML = '';
+function destroyBoxes() {
+  clearBoxes();
 }
 
-createButton.addEventListener('click', button);
-userInput.addEventListener('input', createButtonHandler);
-destroyButton.addEventListener('click', destroyBoxes);
+function clearBoxes() {
+  boxesContainer.innerHTML = '';
+}
