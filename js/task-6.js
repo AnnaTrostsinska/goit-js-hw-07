@@ -23,15 +23,18 @@ function createBoxes(amount) {
 
   clearBoxes();
 
+  const fragment = document.createDocumentFragment(); 
+
   let size = 30;
   for (let i = 0; i < amount; i++) {
     const div = document.createElement('div');
     div.style.width = `${size}px`;
     div.style.height = `${size}px`;
     div.style.backgroundColor = getRandomHexColor();
-    boxesContainer.appendChild(div);
-    size += 10;
+    fragment.appendChild(div); 
   }
+
+  boxesContainer.appendChild(fragment); 
 
   input.value = '';
 }
